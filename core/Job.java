@@ -20,8 +20,9 @@ public class Job {
     // Job configuration
     private Config config;
 
-    // Global object to store intermediate and final results
+    // Global Threadsafe objects to store intermediate and final results
     protected static ConcurrentHashMap map,map1;
+    protected static ArrayList record;
 
     // Constructor
     public Job(Config config) {
@@ -30,17 +31,19 @@ public class Job {
 
     // Run the job given the provided configuration
     public void run() throws Exception {
-        // Initialise the maps to store intermediate results
+        // Initialise the Threadsafe maps to store intermediate results
         map = new ConcurrentHashMap();
         map1 = new ConcurrentHashMap();
+        // Initialise ArrayList to read in file prior to chunking up
+        record = new ArrayList<String>();
         // Execute the map and reduce phases in sequence
         map();
-        System.out.println("After Map Phase : " + map);
+        System.out.println("After Map Phase, output map is: " + map);
         combine();
-        System.out.println("After Combine Phase : " + map1);
+        System.out.println("After Combine Phase, output map is: " + map1);
         reduce();
         // Output the results to the console
-        System.out.println("After Reduce Phase : " + map1);
+        System.out.println("After Reduce Phase, output map is: " + map1);
     }
 
     // Map each provided file using an instance of the mapper specified by the job configuration

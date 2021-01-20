@@ -9,22 +9,33 @@ import java.io.*;
 import java.util.concurrent.*;
 import java.util.HashMap;
 /**
- * Assignment:
+ * Assignment Task 1:
+ * Counts the number of flights from each airport.
+ * A multi-threaded solution which creates a mapper for the input file and a combiner for each
+ * airport and a reducer to sum the flights.
+ *
  * Task 1: counts the number of flights for each originating airport.
  * Initially mapper maps each unique FromAirportCode+flightID to Key with Value as 1
  * Combiner then takes first 3 characters of this key which is the FromAirportcode
  * and combines values into a list for each Airport Code.
- * Reducer then sums the values of the list for each Airport Code
- *
+ * Reducer then sums the values of the list for each Airport Code.
+ * 
+ * Multi-threading for each of Mapper, Combiner and Reducer stages
+ * 
+ * Number of threads defined in each of Mapper, Combiner and Reducer modules
+ * 
+ * Thread-safe data structures (ConcurrentHashMap) used to store intermediate results
+ * 
+ * Combiner stage does not commence until all Mapper threads complete. Similarly
+ * Reducer stage does not commence until all Combiner threads complete.
+ * 
  * To run:
- * java Task_1.java <file>
+ * java Task_1.java <files>
  *     i.e. java Task_1.java AComp_Passenger_data_no_error.csv
  *
- * Areas to add improvement:
+ * Potential Areas for improvement:
+ * 
  * - Error checking and handling
- * - Multi-threading
- *   - Partitioning of input for parallel processing
- *   - Synchronisation and thread-safe operations
  */
 class Task_1
     {
@@ -38,8 +49,7 @@ class Task_1
         job.run();
         DisplayTotals(aList,Job.getMap());
     }
-
-    // Read airports file into airport list object
+    // Read in airports file
     public static void ReadAirports()
     {
         String csvFile1="Top30_airports_LatLong.csv";
@@ -63,23 +73,21 @@ class Task_1
             System.out.println("IO Exception");
             e.printStackTrace();
         }
-        System.out.println("***Airport List is: "+aList);
-        System.out.println("*** no of airports read in is: "+aList.size());
     }
-    
+    // Print out total flights from each airport and unused airports as obtained from map
     private static void DisplayTotals(AirportList AirportListIn, ConcurrentHashMap mapIn){
         int total=0;
         System.out.println("*** Used Airports ***");
         for (String apCode: AirportListIn.getKeys()){
             if (mapIn.containsKey(apCode)){
                 total=(int) mapIn.get(apCode);
-                System.out.println("Airport: "+AirportListIn.getName(apCode)+ " Total Flights: "+total);
+                System.out.format("Used Airport:  %-18s Total Flights: %3d\n",AirportListIn.getName(apCode),total);
             }
         }
         System.out.println("*** Unused Airports ***");
         for (String apCode: AirportListIn.getKeys()){
             if (!mapIn.containsKey(apCode)){
-                System.out.println("Unused Airport: "+AirportListIn.getName(apCode));
+                System.out.format("Unused Airport:%-18s\n",AirportListIn.getName(apCode));
             }
         }
 
@@ -100,15 +108,13 @@ class Task_1
     // VALUE = count
     public static class combiner extends Combiner {
         public void combine(Object key, List values) {
-            //int count = 0;
-            //for (Object value : values) count += (int) value;
-            EmitIntermediate2(key.toString().substring(0,3), values);
+            EmitIntermediate3(key.toString().substring(0,3), values);
         }
     }
     // Airport Code count reducer:
     // Output the total number of occurrences of each unique Aiport Code
     // KEY = FromAirport Code
-    // VALUE = total count
+    // VALUE = count
     public static class reducer extends Reducer {
         public void reduce(Object key, List values) {
             int count = 0;
