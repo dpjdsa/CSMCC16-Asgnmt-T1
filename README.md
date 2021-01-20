@@ -1,20 +1,43 @@
-# CSMCC16-Asgnmt-T1
-Repository containing Java Code for CSMCC16 Assignment Task 1
+# CSMCC16-Assignment-FinalT1
+This Repository contains the java code for Assignment Task 1
+The code is written in Java and is a multi-threaded, error-correcting version.
+It also produces an output CSV file "Task_1_Output.csv" 
 
-Task 1: counts the number of flights for each originating airport.
-A multi-thread solution which initiates multiple threads for each of Mapper, Combiner
-and reducer phases.
+To Run:
+java Task_1.java Top30_airports_LatLong.csv AComp_Passenger_data.csv
 
-Uses thread-safe data structures to hold intermediate results (ConcurrentHashMap)
-Initially mapper maps each unique FromAirportCode+flightID to Key with Value as 1
-Combiner then takes first 3 characters of this key which is the FromAirportcode
-and combines values into a list for each Airport Code.
-Reducer then sums the values of the list for each Airport Code
+Output:
+Diagnostics showing:
+- Airport List and number of airports read in
+- Passenger Record list by line showing errors as they occur
+- Faulty Passenger Records before and after correction
+- Size of passenger record file after correction
+- Number of map threads started with message when each map thread is started
+- Output map after map phase
+- Number of combine threads started with message when each combine thread is started
+- Output map after combine phase
+- Number of reduce threads started with message when each combine thread is started
+- Output map after reduce phase
+
+Final Printout:
+- Used airports with number of flights from each
+- Unused airports
+- CSV file containing airport and number of flights
+
+The second module which runs shows the output as a chart
+
+To Compile:
+ - First define environment variable to point to javafx sdk lib folder
+   in this case it was:
+ - export PATH_TO_FX=/Applications/javafx-sdk-11.0.2/lib/
  
-  To run:
-  java Task_1.java <file>
-      i.e. java Task_1.java AComp_Passenger_data_no_error.csv
+ - Then compile the module using the $PATH_TO_FX variable:
+  
+ - javac --module-path $PATH_TO_FX --add-modules javafx.controls Charting.java
+  
+   finally run by:
+ 
+ - java --module-path $PATH_TO_FX --add-modules javafx.controls Charting
 
- Areas to add improvement:
-    - Error checking and handling
-   
+ This produces a barchart of number of flight departures by airport
+

@@ -18,13 +18,14 @@ public abstract class Mapper{
     public static final int NUM_MAP_THREADS = 10; 
     // The input file for this mapper to process
     protected File file;
+    protected PassengerList pList;
 
     // Default constructor
     public Mapper() {}
 
     // Set the input file for the given instance
-    public void setFile(File file) {
-        this.file = file;
+    public void setPList(PassengerList pListIn) {
+        this.pList = pListIn;
     }
 
     // Execute the map function for each line of the provided file
@@ -33,7 +34,7 @@ public abstract class Mapper{
         int numRecords=0;
         // Read the file and get the size of it
         try {
-            numRecords = Config.read(this.file);
+            numRecords = Config.read(pList);
             if (num_map_threads>numRecords)
                 num_map_threads=numRecords;
         } catch (Exception e){

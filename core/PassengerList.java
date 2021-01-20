@@ -15,17 +15,17 @@ public class PassengerList {
     {
         pList = new ArrayList<>();
     }
-    // Adds passenger to passenger list
     public void addPassenger(Passenger passengerIn)
     {
         pList.add(passengerIn);
     }
-    //Gets size of passenger list
     public int size()
     {
         return pList.size();
     }
-    //for output
+    public Passenger getPassenger(int positionIn){
+        return pList.get(positionIn);
+    }
     @Override
     public String toString()
     {

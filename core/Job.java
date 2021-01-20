@@ -23,10 +23,12 @@ public class Job {
     // Global Threadsafe objects to store intermediate and final results
     protected static ConcurrentHashMap map,map1;
     protected static ArrayList record;
+    protected static PassengerList pList;
 
     // Constructor
-    public Job(Config config) {
+    public Job(Config config,PassengerList pListIn) {
         this.config = config;
+        this.pList=pListIn;
     }
 
     // Run the job given the provided configuration
@@ -48,10 +50,12 @@ public class Job {
 
     // Map each provided file using an instance of the mapper specified by the job configuration
     private void map() throws Exception {
-        for(File file : config.getFiles()) {
-            Mapper mapper = config.getMapperInstance(file);
+        //for(File file : config.getFiles()) {
+            //Mapper mapper = config.getMapperInstance(file);
+            Mapper mapper = config.getMapperInstance();
+            mapper.setPList(pList);
             mapper.run();
-        }
+        
     }
     // Reduce the intermediate results output by the map phase using an instance of the combiner specified by the job configuration
     private void combine() throws Exception {
