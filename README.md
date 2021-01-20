@@ -1,4 +1,4 @@
-# CSMCC16-Assignment-FinalT1
+# CSMCC16-Asgnmt-T1
 This Repository contains the java code for Assignment Task 1
 The code is written in Java and is a multi-threaded, error-correcting version.
 It also produces an output CSV file "Task_1_Output.csv" 
@@ -39,5 +39,5 @@ To Compile:
  
  - java --module-path $PATH_TO_FX --add-modules javafx.controls Charting
 
- This produces a barchart of number of flight departures by airport
+ This produces a barchart of number of flight departures by airport.
 
