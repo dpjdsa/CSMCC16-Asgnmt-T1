@@ -9,12 +9,9 @@ import java.util.concurrent.*;
 /**
  * MapReduce Job class
  * Coordinates the entire MapReduce process
+ * @author BD837672
+ * @version 22nd January 2021
  *
- * Areas for improvement:
- * - Implement effective partitioning or "chunking" of the input to evenly distribute records across multiple mappers
- *   and reducers
- * - Pass segmented chunks to independent threads for efficient parallel processing
- * - Implement sorting
  */
 public class Job {
     // Job configuration
@@ -49,9 +46,7 @@ public class Job {
     }
 
     // Map each provided file using an instance of the mapper specified by the job configuration
-    private void map() throws Exception {
-        //for(File file : config.getFiles()) {
-            //Mapper mapper = config.getMapperInstance(file);
+    private void map() throws Exception {       
             Mapper mapper = config.getMapperInstance();
             mapper.setPList(pList);
             mapper.run();
