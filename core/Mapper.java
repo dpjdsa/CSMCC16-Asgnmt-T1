@@ -11,6 +11,8 @@ import java.util.*;
  *  - Operates on portions of the input in parallel rather than on entire files.
  *  - Implements the runnable interface for execution as a thread
  *  - Replaces operations on the global map object with thread-safe alternatives
+ * @author BD837672
+ * @version 22nd January 2021
  */
 
 //public abstract class Mapper {
