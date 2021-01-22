@@ -31,6 +31,8 @@ import java.util.Map.*;
  * finally run by:
  * 
  * java --module-path $PATH_TO_FX --add-modules javafx.controls Charting
+ * @author BD837672
+ * @version 22nd January 2021
  */
 // From tutorials.jenkov.com/javafx/barchart.html accessed on 17/1/21 at 10.00am
 // JavaFX using JavaFX Charts release 2.2 E20487-08 Jan 2014 from docs.oracle.com/javafx/2/charts/jfxpub-chsarts.pdf
