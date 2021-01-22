@@ -12,10 +12,11 @@ import java.util.HashMap;
  * Reading, Error Checking and Correcting input file
  * Reads in Airport list and Passenger record file.
  * Assumes airport list is error free but corrects passenger record fields
- * which have incorrect formats based on finding lowest Levensthein
+ * which have incorrect formats based on finding lowest Levenshtein
  * score to fields that have already been scanned correctly.
  * 
- *
+ * @author BD837672
+ * @version 22nd January 2021
  */
 public class ReadAndErrorCheck
     {
