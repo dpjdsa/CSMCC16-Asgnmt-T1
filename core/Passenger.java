@@ -1,6 +1,7 @@
 package core;
 /** Class used to store details of single passenger on flight
- * 
+ * @author BD837672
+ * @version 22nd January 2021
  */
 public class Passenger {
     private String passId;
@@ -21,6 +22,7 @@ public class Passenger {
         depTime=depTimeIn;
         flightTime=flightTimeIn;
     }
+    // Getter methods
     public String getId(){
         return passId;
     }
@@ -39,10 +41,11 @@ public class Passenger {
     public double getFltTime(){
         return flightTime;
     }
+    // Converts passenger record to CSV record
     public String toCSV(){
         return (passId+","+flightId+","+fromApt+","+destApt+","+depTime.toString()+","+flightTime.toString()+"\n");
     }
-
+    // For output
     @Override
     public String toString()
     {
